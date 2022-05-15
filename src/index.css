@@ -1,13 +1,211 @@
-body {
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+*,
+*::before,
+*::after {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
+}
+.txtbox {
+  border: none;
+  padding: 3px 4px;
+  font-size: 16px;
+  color: gray;
+  margin: 4px 0;
+  width: 100%;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.txtbox:hover {
+  background-color: lightgoldenrodyellow;
+  border: none;
+}
+.txtbox:focus,
+input:focus {
+  border: none;
+  outline: none;
+}
+
+.selectCountry select {
+  color: rgb(98, 96, 96);
+  font-size: 16px;
+  border: none;
+  background-color: #fff;
+  width: "auto";
+  margin-bottom: 4px;
+}
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: "";
+  padding: 3px 4px;
+}
+.selectCountry select:hover {
+  background-color: lightgoldenrodyellow;
+}
+
+.selectCountry select:focus,
+input:focus {
+  background-color: lightgoldenrodyellow;
+  border: none;
+  outline: none;
+}
+
+.tablebox {
+  border: none;
+  font-size: 16px;
+  width: 100%;
+  background-color: #666666;
+  padding: 5px;
+  margin: 5px 0;
+  color: #fff;
+  font-weight: 600;
+}
+
+.tablebox:focus,
+.tablebox:active {
+  border: none;
+  outline: none;
+  color: #666666;
+}
+.txtarea {
+  border: none;
+  width: 100%;
+  padding: 5px;
+  resize: vertical;
+  outline: none;
+  color: gray;
+}
+.txtarea:hover {
+  background-color: lightgoldenrodyellow;
+  border: none;
+  outline: none;
+}
+.total {
+  border: none;
+  font-size: 16px;
+  width: 100%;
+  background-color: #e3e3e3;
+  padding: 5px;
+  margin: 5px 0;
+  color: black;
+  font-weight: 900;
+}
+.currencyBox {
+  background-color: #e3e3e3;
+  border: none;
+  font-size: 20px;
+  width: 100%;
+  padding: 5px;
+  /* margin: 5px 0;  */
+  color: gray;
+  font-weight: 600;
+  text-align: right;
+}
+.currencyBox:focus,
+.currencyBox:active {
+  border: none;
+  outline: none;
+  color: #666666;
+}
+
+.value {
+  color: black;
+  padding: 5px;
+  /* margin: 5px 0;  */
+  text-align: right;
+}
+.amount {
+  color: black;
+  padding: 5px;
+}
+
+.img {
+  height: 40px;
+  width: 150px;
+  border: "1px dotted gray";
+  border-style: dotted;
+  color: rgb(168, 164, 164);
+  font-weight: 600;
+  font-size: 16px;
+}
+.img:hover {
+  height: 150px;
+  transition: height 400ms ease-in-out;
+  /* transition-delay: 1s;  */
+}
+.img {
+  height: 40px;
+  transition: height 400ms ease-in-out;
+  z-index: 999;
+}
+.imgAfterUpload:hover {
+  /* display: none; */
+  /* height: 40px;  */
+  width: 100px;
+  border: "1px dotted gray";
+  border-style: dotted;
+  color: rgb(168, 164, 164);
+  font-weight: 600;
+  font-size: 16px;
+  z-index: -2;
+}
+
+/* Parent Container */
+.content_img {
+  position: relative;
+  width: 100px;
+  /* height: 100px;  */
+  float: left;
+}
+
+/* Child Text Container */
+.content_img .update {
+  height: auto;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: rgb(119, 115, 115);
+  color: black;
+  font-size: 14px;
+  font-weight: 800;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: visibility 0s, opacity 0.5s linear;
+  transition: visibility 0s, opacity 0.5s linear;
+}
+.content_img .delete {
+  height: 20px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: visibility 0s, opacity 0.5s linear;
+  transition: visibility 0s, opacity 0.5s linear;
+}
+.content_img .update p {
+  background: white;
+  text-align: center;
+  margin-top: 50%;
+}
+
+/* Hover on Parent Container */
+.content_img:hover {
+  cursor: pointer;
+}
+
+.content_img:hover .update {
+  width: 100px;
+  height: 100%;
+  visibility: visible;
+  opacity: 0.8;
+  border: 1px dotted red;
+}
+.content_img:hover .delete {
+  width: 20px;
+  height: 20px;
+  visibility: visible;
+  opacity: 1;
 }

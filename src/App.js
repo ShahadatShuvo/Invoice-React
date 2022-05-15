@@ -1,24 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import { Button, Container, Grid, Paper } from "@mui/material";
+import React from "react";
+import Invoice from "./components/Invoice";
+import SimCardDownloadIcon from "@mui/icons-material/SimCardDownload";
+import { Box } from "@mui/system";
+import html2canvas from "html2canvas";
+import { jsPDF } from "jspdf";
 
 function App() {
+  const printRef = React.useRef();
+  const handleDownloadPdf = async () => {
+    const element = printRef.current;
+    const canvas = await html2canvas(element);
+    const data = canvas.toDataURL("image/png");
+
+    const pdf = new jsPDF();
+    const imgProperties = pdf.getImageProperties(data);
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    console.log(pdfWidth);
+    const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
+
+    pdf.addImage(data, "PNG", 0, 0, pdfWidth, pdfHeight);
+    pdf.save("print.pdf");
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <Grid container spacing={0} justifyContent="center">
+        <Grid item xs={8} my={5}>
+          <Box>
+            <Paper ref={printRef} elevation={3}>
+              <Invoice />
+            </Paper>
+          </Box>
+        </Grid>
+        <Grid item xs={2} my={5}>
+          <Box textAlign="center" mt={8}>
+            <Button
+              onClick={handleDownloadPdf}
+              size="small"
+              startIcon={<SimCardDownloadIcon />}
+            >
+              Download
+            </Button>
+          </Box>
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
 
