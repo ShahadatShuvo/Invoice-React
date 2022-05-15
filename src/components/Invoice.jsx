@@ -145,7 +145,7 @@ function Invoice() {
             className="txtbox"
             type="text"
             style={{
-              fontSize: "28px",
+              fontSize: "3rem",
               fontWeight: 800,
               textTransform: "uppercase",
               textAlign: "right",
