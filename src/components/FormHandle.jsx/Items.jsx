@@ -26,7 +26,7 @@ function Items(props) {
   return (
     <form onChange={handleSubmit(onSubmit)}>
       <Grid container spacing={2}>
-        <Grid item xs={5}>
+        <Grid item xs={4} md={5}>
           <Controller
             name="description"
             control={control}

@@ -118,7 +118,7 @@ function Invoice() {
     setTax(res);
   };
   return (
-    <Box py={5} px={4}>
+    <Box py={{ xs: 1, md: 3, lg: 5 }} px={{ xs: 1, lg: 4 }}>
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <Box>
@@ -197,7 +197,7 @@ function Invoice() {
           backgroundColor: "#666666",
         }}
       >
-        <Grid item xs={5}>
+        <Grid item xs={4} md={5}>
           <TableInput value="Item Description" />
         </Grid>
         <Grid item xs={2}>
@@ -254,7 +254,7 @@ function Invoice() {
                 />
               </form>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={5} md={6}>
               <h4 className="value">{displaySubTotal}</h4>
               <h4 className="value">{totalTax}</h4>
             </Grid>
@@ -263,10 +263,10 @@ function Invoice() {
       </Grid>
 
       <Grid container spacing={1}>
-        <Grid item xs={6}></Grid>
-        <Grid item xs={6}>
+        <Grid item xs={5} md={6}></Grid>
+        <Grid item xs={7} md={6}>
           <Grid container spacing={0} sx={{ backgroundColor: "#E3E3E3" }} p={1}>
-            <Grid item xs={6}>
+            <Grid item xs={5} md={6}>
               <input
                 className="total"
                 type="text"

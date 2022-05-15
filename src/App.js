@@ -25,15 +25,15 @@ function App() {
   return (
     <Container>
       <Grid container spacing={0} justifyContent="center">
-        <Grid item xs={8} my={5}>
+        <Grid item xs={12} md={8} xl={6} my={5}>
           <Box>
             <Paper ref={printRef} elevation={3}>
               <Invoice />
             </Paper>
           </Box>
         </Grid>
-        <Grid item xs={2} my={5}>
-          <Box textAlign="center" mt={8}>
+        <Grid item xs={4} md={2} mt={{ xs: 0, lg: 5 }} mb={{ xs: 3, lg: 5 }}>
+          <Box textAlign="center" mt={{ xs: 0, lg: 8 }}>
             <Button
               onClick={handleDownloadPdf}
               size="small"
