@@ -9,7 +9,7 @@ import TableInput from "./FormHandle.jsx/TableInput";
 import { Button } from "@mui/material";
 import Items from "./FormHandle.jsx/Items";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { green } from "@mui/material/colors";
+import { green, blue } from "@mui/material/colors";
 import TextArea from "./FormHandle.jsx/TextArea";
 import ImageUpload from "./FormHandle.jsx/ImageUpload";
 import { useForm, Controller } from "react-hook-form";
@@ -273,6 +273,12 @@ function Invoice() {
                     size="small"
                     onClick={() => setIsDiscount(true)}
                     endIcon={<AddCircleIcon />}
+                    sx={{
+                      color: "white",
+                      "&:hover": {
+                        color: blue[500],
+                      },
+                    }}
                   >
                     Discount
                   </Button>

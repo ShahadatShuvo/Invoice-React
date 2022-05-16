@@ -209,3 +209,6 @@ input:focus {
   visibility: visible;
   opacity: 1;
 }
+.discount{
+  color: red;
+}
