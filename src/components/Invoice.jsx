@@ -9,7 +9,7 @@ import TableInput from "./FormHandle.jsx/TableInput";
 import { Button } from "@mui/material";
 import Items from "./FormHandle.jsx/Items";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { green, blue } from "@mui/material/colors";
+import { green, blue, red } from "@mui/material/colors";
 import TextArea from "./FormHandle.jsx/TextArea";
 import ImageUpload from "./FormHandle.jsx/ImageUpload";
 import { useForm, Controller } from "react-hook-form";
@@ -39,7 +39,11 @@ function Invoice() {
 
   const [isDiscount, setIsDiscount] = React.useState(false);
 
+  const [isDue, setIsDue] = React.useState(false);
+
   const [discount, setDiscount] = React.useState(0);
+
+  const [paid, setPaid] = React.useState(0);
 
   function calculateSubtotal() {
     let sum = 0;
@@ -63,6 +67,8 @@ function Invoice() {
   const Discount = TaxandSubtotal * (discount / 100);
 
   const Total = TaxandSubtotal - Discount;
+
+  const Due = Total - paid;
 
   function onAdditem() {
     const itemObject = {
@@ -118,10 +124,11 @@ function Invoice() {
     defaultValues: {
       saleTax: "Sale Tax (10%)",
       discount: "Discount (0%)",
+      paid: 0,
     },
   });
   const onSubmit = (data) => {
-    console.log(data);
+    setPaid(data.paid);
     let str1 = data.saleTax;
     str1 = str1.replace(/\s+/g, "");
     let tax = Number(str1.slice(8, -2));
@@ -342,6 +349,105 @@ function Invoice() {
               </Grid>
             </Grid>
           </Grid>
+
+          {!isDue && (
+            <Button
+              size="small"
+              onClick={() => setIsDue(true)}
+              endIcon={<AddCircleIcon />}
+              sx={{
+                marginTop: "5px",
+                color: "white",
+                "&:hover": {
+                  color: red[500],
+                },
+              }}
+            >
+              Due
+            </Button>
+          )}
+
+          {isDue && (
+            <Box>
+              <Grid container spacing={0}>
+                <Grid item xs={5}>
+                  <TextheadlineInput placeholder="Paid:" />
+                </Grid>
+                <Grid item xs={7}>
+                  <Grid container justifyContent="center" spacing={0}>
+                    <Grid item xs={5}>
+                      <input
+                        className="txtbox"
+                        style={{
+                          textAlign: "right",
+                        }}
+                        type="text"
+                        name=""
+                        id=""
+                        placeholder="$"
+                      />
+                    </Grid>
+                    <Grid item xs={7}>
+                      {/* paid  */}
+                      <form onChange={handleSubmit(onSubmit)}>
+                        <Controller
+                          name="paid"
+                          control={control}
+                          render={({ field }) => (
+                            <input
+                              {...field}
+                              className="txtbox"
+                              type="text"
+                              name=""
+                              id=""
+                              style={{
+                                fontSize: "16px",
+                                fontWeight: 600,
+                                textAlign: "right",
+                              }}
+                            />
+                          )}
+                        />
+                      </form>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+
+              <Grid container spacing={0}>
+                <Grid item xs={5}>
+                  <TextheadlineInput placeholder="Due:" />
+                </Grid>
+                <Grid item xs={7}>
+                  <Grid container justifyContent="center" spacing={0}>
+                    <Grid item xs={5}>
+                      <input
+                        className="txtbox"
+                        style={{
+                          textAlign: "right",
+                        }}
+                        type="text"
+                        name=""
+                        id=""
+                        placeholder="$"
+                      />
+                    </Grid>
+                    <Grid item xs={7}>
+                      <h4
+                        className="value"
+                        style={{
+                          color: "gray",
+                          fontSize: "17px",
+                        }}
+                      >
+                        {Due}
+                      </h4>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Box>
+          )}
         </Grid>
       </Grid>
       <Box mt={2}>
