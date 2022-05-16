@@ -276,7 +276,7 @@ function Invoice() {
               </form>
               <Box>
                 {!isDiscount && (
-                  <Button
+                  <Button 
                     size="small"
                     onClick={() => setIsDiscount(true)}
                     endIcon={<AddCircleIcon />}
@@ -352,6 +352,7 @@ function Invoice() {
 
           {!isDue && (
             <Button
+              fullWidth
               size="small"
               onClick={() => setIsDue(true)}
               endIcon={<AddCircleIcon />}
