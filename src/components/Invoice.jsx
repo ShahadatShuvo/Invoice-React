@@ -13,7 +13,6 @@ import { green } from "@mui/material/colors";
 import TextArea from "./FormHandle.jsx/TextArea";
 import ImageUpload from "./FormHandle.jsx/ImageUpload";
 import { useForm, Controller } from "react-hook-form";
-
 import { nanoid } from "nanoid";
 
 function Invoice() {
@@ -36,6 +35,12 @@ function Invoice() {
     },
   ]);
 
+  const [tax, setTax] = React.useState(10);
+
+  const [isDiscount, setIsDiscount] = React.useState(false);
+
+  const [discount, setDiscount] = React.useState(0);
+
   function calculateSubtotal() {
     let sum = 0;
     for (let i = 0; i < items.length; i++) {
@@ -45,16 +50,19 @@ function Invoice() {
   }
   const displaySubTotal = calculateSubtotal();
 
-  const [tax, setTax] = React.useState(10);
-
   function calculateTax() {
     let totalTax = Number(displaySubTotal * (tax / 100)).toFixed(2);
     return totalTax;
   }
-  const totalTax = calculateTax();
-  const totalWithTax = Number(
-    Number(displaySubTotal) + Number(totalTax)
-  ).toFixed(2);
+  const Tax = calculateTax();
+
+  const TaxandSubtotal = Number(Number(displaySubTotal) + Number(Tax)).toFixed(
+    2
+  );
+
+  const Discount = TaxandSubtotal * (discount / 100);
+
+  const Total = TaxandSubtotal - Discount;
 
   function onAdditem() {
     const itemObject = {
@@ -109,13 +117,19 @@ function Invoice() {
   const { control, handleSubmit } = useForm({
     defaultValues: {
       saleTax: "Sale Tax (10%)",
+      discount: "Discount (0%)",
     },
   });
   const onSubmit = (data) => {
-    let str = data.saleTax;
-    str = str.replace(/\s+/g, "");
-    let res = Number(str.slice(8, -2));
-    setTax(res);
+    console.log(data);
+    let str1 = data.saleTax;
+    str1 = str1.replace(/\s+/g, "");
+    let tax = Number(str1.slice(8, -2));
+    setTax(tax);
+    let str2 = data.discount;
+    str2 = str2.replace(/\s+/g, "");
+    let dcnt = Number(str2.slice(9, -2));
+    setDiscount(dcnt);
   };
   return (
     <Box py={{ xs: 1, md: 3, lg: 5 }} px={{ xs: 1, lg: 4 }}>
@@ -253,10 +267,40 @@ function Invoice() {
                   )}
                 />
               </form>
+              <Box>
+                {!isDiscount && (
+                  <Button
+                    size="small"
+                    onClick={() => setIsDiscount(true)}
+                    endIcon={<AddCircleIcon />}
+                  >
+                    Discount
+                  </Button>
+                )}
+                {isDiscount && (
+                  <form onChange={handleSubmit(onSubmit)}>
+                    <Controller
+                      name="discount"
+                      control={control}
+                      render={({ field }) => (
+                        <input
+                          {...field}
+                          className="txtbox"
+                          type="text"
+                          name=""
+                          id=""
+                          style={{ fontSize: "14px" }}
+                        />
+                      )}
+                    />
+                  </form>
+                )}
+              </Box>
             </Grid>
             <Grid item xs={5} md={6}>
               <h4 className="value">{displaySubTotal}</h4>
-              <h4 className="value">{totalTax}</h4>
+              <h4 className="value">{Tax}</h4>
+              {isDiscount && <h4 className="value">{Discount}</h4>}
             </Grid>
           </Grid>
         </Grid>
@@ -287,7 +331,7 @@ function Invoice() {
                   />
                 </Grid>
                 <Grid item xs={6}>
-                  <h3 className="value">{totalWithTax}</h3>
+                  <h3 className="value">{Total}</h3>
                 </Grid>
               </Grid>
             </Grid>
